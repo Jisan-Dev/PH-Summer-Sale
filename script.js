@@ -3,9 +3,10 @@ let counter = 0;
 // totalPrice
 let total = 0;
 const discountAmount = document.getElementById('discountPrice');
-const couponInpValue = document.getElementById('input-field').value;
+const couponInput = document.getElementById('input-field');
 const totalContainer = document.getElementById('total');
 const netTotal = document.getElementById('netTotal');
+const applyBtn = document.getElementById('apply-btn');
 
 for (let card of cards) {
   card.addEventListener('click', () => {
@@ -25,9 +26,15 @@ for (let card of cards) {
     if (totalContainer.innerText > 200) {
       const discountAmountCalc = (totalPrice * 0.2).toFixed(2);
       discountAmount.innerText = discountAmountCalc;
-      // total -= discountAmount;
-      // totalContainer.innerText = discountAmount;
       netTotal.innerText = totalPrice - parseFloat(discountAmountCalc);
     }
   });
 }
+
+applyBtn.addEventListener('click', () => {
+  if (couponInput.value.toUpperCase() === 'SELL200') {
+    const discountAmountCalc = (totalContainer.innerText * 0.2).toFixed(2);
+    discountAmount.innerText = discountAmountCalc;
+    netTotal.innerText = totalContainer.innerText - parseFloat(discountAmountCalc);
+  }
+});

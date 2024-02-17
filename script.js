@@ -29,6 +29,7 @@ for (let card of cards) {
   });
 }
 
+//apply coupon - btn handler
 applyBtn.addEventListener('click', () => {
   if (couponInput.value.toUpperCase() === 'SELL200' && totalContainer.innerText >= 200) {
     calcDiscount(discountAmountContainer, netTotalContainer, totalContainer);
@@ -56,7 +57,13 @@ const showModal = () => {
     title.remove();
   }
 };
-const hideModal = () => {
+const hideModal = (event) => {
+  event.stopPropagation();
   document.getElementById('modal-container').classList.add('hidden');
   document.getElementById('btn-purchase').setAttribute('disabled', 'true');
 };
+
+document.getElementById('modal__btn').addEventListener('click', () => {
+  document.getElementById('modal-container').classList.add('hidden');
+  document.getElementById('btn-purchase').setAttribute('disabled', 'true');
+});

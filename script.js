@@ -63,6 +63,7 @@ const hideModal = (event) => {
   document.getElementById('btn-purchase').setAttribute('disabled', 'true');
 };
 
+// modal btn (back to home) handler
 document.getElementById('modal__btn').addEventListener('click', () => {
   document.getElementById('modal-container').classList.add('hidden');
   document.getElementById('btn-purchase').setAttribute('disabled', 'true');

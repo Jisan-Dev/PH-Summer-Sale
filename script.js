@@ -16,6 +16,7 @@ for (let card of cards) {
     const titleContainer = document.getElementById('title-container');
 
     const p = document.createElement('p');
+    p.classList.add('side-product-title');
     p.innerText = `${++counter}. ${cardTitle}`;
     titleContainer.appendChild(p);
     // total price count
@@ -23,14 +24,13 @@ for (let card of cards) {
     const totalPrice = total.toFixed(2);
     totalContainer.innerText = totalPrice;
 
-    if (totalContainer.innerText >= 200) {
-      calcDiscount(discountAmountContainer, netTotalContainer, totalContainer);
-    }
+    // activate the purchase button
+    document.getElementById('btn-purchase').removeAttribute('disabled');
   });
 }
 
 applyBtn.addEventListener('click', () => {
-  if (couponInput.value.toUpperCase() === 'SELL200') {
+  if (couponInput.value.toUpperCase() === 'SELL200' && totalContainer.innerText >= 200) {
     calcDiscount(discountAmountContainer, netTotalContainer, totalContainer);
   }
 });
@@ -39,4 +39,24 @@ const calcDiscount = (discountContainer, netTotalContainer, totalContainer) => {
   const discountAmountCalc = (totalContainer.innerText * 0.2).toFixed(2);
   discountContainer.innerText = discountAmountCalc;
   netTotalContainer.innerText = (totalContainer.innerText - parseFloat(discountAmountCalc)).toFixed(2);
+};
+
+// modal control on purchase
+const showModal = () => {
+  document.getElementById('modal-container').classList.remove('hidden');
+  total = 0;
+  totalContainer.innerText = '';
+  discountAmountContainer.innerText = '';
+  netTotalContainer.innerText = '';
+  couponInput.value = '';
+
+  counter = 0;
+  const sideTitle = document.querySelectorAll('.side-product-title');
+  for (let title of sideTitle) {
+    title.remove();
+  }
+};
+const hideModal = () => {
+  document.getElementById('modal-container').classList.add('hidden');
+  document.getElementById('btn-purchase').setAttribute('disabled', 'true');
 };
